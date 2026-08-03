@@ -1,0 +1,33 @@
+# Jetson 2026 征文 19篇 全量测试报告
+
+> 测试时间: 2026-08-03 15:04:14 | 环境: CPU x86 (无Jetson硬件, 模拟运行)
+
+**结果: 19/19 通过**
+
+| Demo | 状态 | 耗时 | 输出摘要 |
+|---|---|---|---|
+| 01_bevfusion_demo.py | ✅ | 367.6ms |    真实部署: TensorRT静态shape + FP16 + CUDA Graph |
+| 02_deepstream_follow_demo.py | ✅ | 13.8ms |    真实部署: DeepStream nvstreammux批处理 + TensorRT INT8 |
+| 03_inspection_robot_demo.py | ✅ | 624.7ms |    真实: FastAPI + YOLO/TensorRT + Qwen2.5-VL + Ollama + TTS |
+| 04_defect_inspection_demo.py | ✅ | 96.0ms | ✅ 验证: 推理→分级→GPIO剔除 闭环 (真实: 28ms/帧, 168h稳定运行) |
+| 05_panotwin_demo.py | ✅ | 106.2ms | ✅ 验证: 全景→米制深度→3DGS→栅格 全离线流水线 (真实: JetPack6.2+CUDA12.6) |
+| 06_visionlink_demo.py | ✅ | 12.7ms | ✅ 验证: 检测→理解→播报闭环 (真实: Jetson端侧 <200ms延迟) |
+| 07_humanoid_demo.py | ✅ | 13.2ms | ✅ 验证: 视频驱动全身控制链路 (真实: AI对话延迟2-3s, 恐怖谷已优化) |
+| 08_ros2_car_demo.py | ✅ | 96.7ms | ✅ 验证: ROS2话题发布(/vision/line → /control/steer) 解耦闭环 |
+| 09_openclaw_companion_demo.py | ✅ | 12.7ms | ✅ 验证: 多模态(语音+手势)→Agent→语音回复 全离线闭环 |
+| 10_yolo26_agent_demo.py | ✅ | 13.0ms | ✅ 验证: 检测→Agent推理 闭环 (YOLO26新一代检测+OpenClaw中枢) |
+| 11_gesture3d_demo.py | ✅ | 12.8ms | ✅ 验证: 10帧手势驱动 0.00s (模拟265462FPS, 真实60FPS@CUDA多线程) |
+| 12_driver_monitor_demo.py | ✅ | 13.1ms | ✅ 验证: 关键点→行为规则→告警 闭环 (真实: MediaPipe轻量实时) |
+| 13_digital_employee_demo.py | ✅ | 13.0ms | ✅ 验证: Agent自主循环 9步骤执行完毕 (真实: 边缘持续运行) |
+| 14_hyclaw_demo.py | ✅ | 12.6ms | ✅ 验证: 即插即用→发现→加密远程→外设控制 全链路 (真实: 量产落地方案) |
+| 15_hermes_agent_demo.py | ✅ | 13.1ms | ✅ 验证: uv环境→Ollama→Agent任务 闭环 (真实: SD卡即插即用) |
+| 16_voice_assistant_demo.py | ✅ | 263.9ms | ✅ 验证: 播报中可打断(双工) — 真实: VAD+流式STT, <1s响应 |
+| 17_zimage_demo.py | ✅ | 13.2ms |    真实: Jetson 8G显存本地推理, 无需云端 |
+| 18_comfyui_demo.py | ✅ | 12.5ms | ✅ 验证: 节点图→执行→输出 闭环 (真实: Jetson本地SD全流程) |
+| 19_bionic_face_demo.py | ✅ | 14.8ms | ✅ 验证: 文本→音素→口型帧 闭环 (真实: 4个月攻克低延迟渲染) |
+
+## 总结
+
+- 19篇文章全部下载存档、逆向分析、制作CPU可运行demo
+- 全部demo在x86 CPU环境模拟Jetson推理链路，验证各项目核心架构闭环
+- 真实Jetson部署需 TensorRT/CUDA/DeepStream 等NVIDIA栈
